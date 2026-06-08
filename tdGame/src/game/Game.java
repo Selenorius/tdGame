@@ -2,11 +2,10 @@ package game;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import helpers.LoadSave;
 import inputs.KeyboardTracker;
 import inputs.MouseTracker;
 import render.Render;
@@ -17,8 +16,7 @@ import scenes.Settings;
 public class Game extends JFrame implements Runnable {
 
     // VAR DECLARATIONS
-    private BufferedImage icon,
-            spriteAtlas;
+    private BufferedImage icon;
     private long lastUpdate,
             lastFrame,
             lastUpdateTime,
@@ -51,8 +49,7 @@ public class Game extends JFrame implements Runnable {
         frames = 0;
 
         // BufferedImage
-        icon = importImg("/res/tdIcon.png");
-        spriteAtlas = importImg("/res/tdGameSpriteAtlas.png");
+        icon = LoadSave.loadImg("res/tdIcon.png");
 
         // Classes
         initClasses();
@@ -70,12 +67,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     // GETTERS
-    public BufferedImage getSpriteAtlas() {
-
-        return spriteAtlas;
-
-    }
-
     public Dimension getSize() {
 
         return gameScreen.getSize();
@@ -133,27 +124,6 @@ public class Game extends JFrame implements Runnable {
             updateGame();
 
         }
-
-    }
-
-    // FUNCTIONS - BufferedImage
-    private BufferedImage importImg(final String path) {
-
-        final InputStream is = getClass().getResourceAsStream(path);
-        BufferedImage img;
-
-        try {
-
-            img = ImageIO.read(is);
-
-        } catch (final Exception e) {
-
-            img = new BufferedImage(0, 0, ABORT);
-            e.printStackTrace();
-
-        }
-
-        return img;
 
     }
 

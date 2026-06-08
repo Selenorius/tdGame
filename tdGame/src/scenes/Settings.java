@@ -17,7 +17,7 @@ public class Settings extends GameScene implements SceneMethods {
     @Override
     public void render(Graphics g) {
 
-        game.getRender().drawGrid(game.getRender().sprites.get(29), g);
+        
         
     }
 
