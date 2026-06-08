@@ -28,15 +28,16 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void render(Graphics g) {
 
-        int id;
+        int tileId, effectId;
 
         for (int row = 0; row < level.length; ++row) {
 
             for (int col = 0; col < level[row].length; ++col) {
 
-                id = level[col][row];
-                renderTile(row, col, id, g);
-                renderEffect(row, col, id, g);
+                tileId = level[col][row];
+                effectId = effects[col][row];
+                renderTile(col, row, tileId, g);
+                renderEffect(col, row, effectId, g);
 
             }
 
@@ -47,7 +48,6 @@ public class Playing extends GameScene implements SceneMethods {
     private void renderTile(int x, int y, int id, Graphics g) {
 
         BufferedImage sprite = tileManager.getTileSprite(id);
-        if (sprite == null) return;
         g.drawImage(tileManager.getTileSprite(id), LevelBuild.pos(y), LevelBuild.pos(x), null);
 
     }
@@ -55,7 +55,6 @@ public class Playing extends GameScene implements SceneMethods {
     private void renderEffect(int x, int y, int id, Graphics g) {
 
         BufferedImage sprite = tileManager.getEffectSprite(id);
-        if (sprite == null) return;
         g.drawImage(tileManager.getEffectSprite(id), LevelBuild.pos(y), LevelBuild.pos(x), null);
 
     }
