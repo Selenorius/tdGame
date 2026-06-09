@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import helpers.LoadSave;
-import inputs.KeyboardTracker;
-import inputs.MouseTracker;
 import render.Render;
 import scenes.Menu;
 import scenes.Playing;
@@ -24,8 +22,6 @@ public class Game extends JFrame implements Runnable {
     private int updates,
             frames;
     private Thread gameThread;
-    private MouseTracker mouse;
-    private KeyboardTracker keyboard;
 
     //CLASSES
     private GameScreen gameScreen;
@@ -97,13 +93,19 @@ public class Game extends JFrame implements Runnable {
 
     }
 
+    public GameScreen getGameScreen() {
+
+        return gameScreen;
+        
+    }
+
     // FUNCTIONS - GAME LOOP
     public void start() {
 
         gameThread = new Thread(this) {
         };
 
-        initInputs();
+        gameScreen.initInputs();
         gameThread.start();
 
     }
@@ -128,19 +130,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     // FUNCTIONS - INITIALIZERS
-    private void initInputs() {
-
-        mouse = new MouseTracker();
-        keyboard = new KeyboardTracker();
-
-        addMouseListener(mouse);
-        addMouseMotionListener(mouse);
-        addKeyListener(keyboard);
-
-        requestFocus();
-
-    }
-
     private void initClasses() {
 
         gameScreen = new GameScreen(this);
@@ -172,6 +161,8 @@ public class Game extends JFrame implements Runnable {
         final long time = System.nanoTime();
 
         if (time - lastUpdate >= timePerUpdate) {
+
+            gameScreen.decrementClicked();
 
             lastUpdate = time;
             ++updates;

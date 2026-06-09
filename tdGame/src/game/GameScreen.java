@@ -7,17 +7,25 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import render.Render;
+import helpers.LevelBuild;
+import inputs.KeyboardTracker;
+import inputs.MouseTracker;
 
 public class GameScreen extends JPanel {
 
     // CONST DECLARATIONS
-    final private Dimension size = new Dimension(640, 640);
+    public static final Dimension size = new Dimension(640, 640);
+    public static final Font UIFont = new Font("Georgia", Font.PLAIN, 16);
 
     // VAR DECLARATIONS
     protected int fpsCounter,
-            upsCounter;
+            upsCounter,
+            clicked,
+            clickedX,
+            clickedY;
     private final Game game;
+    protected MouseTracker mouse;
+    private KeyboardTracker keyboard;
 
     // CONSTRUCTORS
     public GameScreen(final Game game) {
@@ -33,9 +41,23 @@ public class GameScreen extends JPanel {
     }
 
     // GETTERS
-    public Dimension getSize() {
+    public void setClicked(int clicked) {
 
-        return size;
+        this.clicked = clicked;
+
+    }
+
+    // FUNCTIONS - INITIALIZERS
+    protected void initInputs() {
+
+        mouse = new MouseTracker(game);
+        keyboard = new KeyboardTracker();
+
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
+        addKeyListener(keyboard);
+
+        requestFocus();
 
     }
 
@@ -47,6 +69,7 @@ public class GameScreen extends JPanel {
         game.getRender().render(g);
 
         showStats(g);
+        renderMouseRelease(g);
 
     }
 
@@ -91,6 +114,60 @@ public class GameScreen extends JPanel {
         g.setColor(Color.BLUE);
         g.setFont(new Font("Liberation Mono", Font.PLAIN, 12));
         g.drawString("UPS: " + upsCounter, 64, 9);
+
+    }
+
+    public void renderMouseRelease(final Graphics g) {
+
+		if (clicked > 0) {
+			
+			g.setColor(new Color(255, 255, 255, 35));
+			g.fillArc(
+
+				clickedX - LevelBuild.tileSize / (clicked * 4),
+				clickedY - LevelBuild.tileSize / (clicked * 4),
+				LevelBuild.tileSize / (clicked * 2),
+				LevelBuild.tileSize / (clicked * 2),
+				0,
+				360
+
+			);
+		
+		}
+
+	}
+
+    public void decrementClicked() {
+
+		if (clicked >= 1) {
+
+			--clicked;
+
+		} else {
+
+			clicked = 0;
+
+		}
+
+	}
+
+    public void mouseClicked(int x, int y) {
+
+        clicked = 8;
+        clickedX = x;
+        clickedY = y;
+
+    }
+
+    public static final void drawText(String text, int x, int y, Graphics g) {
+
+        g.drawString(
+            
+            text,
+            x - g.getFontMetrics().stringWidth(text) / 2,
+            y + g.getFontMetrics().getHeight() * 4 / 11
+        
+        );
 
     }
 
