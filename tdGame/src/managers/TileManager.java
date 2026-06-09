@@ -10,7 +10,7 @@ import objects.Tile;
 public class TileManager {
 
     // VAR DECLARATIONS
-    private Tile EMPTY, SAND, ROAD, WATER;
+    private Tile EMPTY, GRASS, ROAD, WATER, ROCK;
     private BufferedImage atlas;
     private ArrayList<Tile> tiles = new ArrayList<>(), effects = new ArrayList<>();
     
@@ -34,7 +34,7 @@ public class TileManager {
     private void createTiles() {
         
         tiles.add(EMPTY);
-        tiles.add(SAND = new Tile(loadSprite(8, 1)));
+        tiles.add(GRASS = new Tile(loadSprite(8, 1)));
 
     }
 
@@ -43,6 +43,7 @@ public class TileManager {
         effects.add(EMPTY);
         effects.add(ROAD = new Tile(loadSprite(9, 0)));
         effects.add(WATER = new Tile(loadSprite(4, 0)));
+        effects.add(ROCK = new Tile(loadSprite(8, 4)));
 
     }
 
