@@ -14,7 +14,7 @@ public class UIButton {
         y,
         width,
         height;
-    private String text;
+    private String text, selectText;
     private Rectangle bounds;
     private boolean hover,
         pressed;
@@ -26,6 +26,7 @@ public class UIButton {
         this.width = width;
         this.height = height;
         this.text = text;
+        selectText = "> " + text + " <";
 
         bounds = new Rectangle(x, y, width, height);
     }
@@ -51,6 +52,7 @@ public class UIButton {
     }
 
     public void draw(Graphics g) {
+        String tempText;
 
         // Body
         g.setColor(Color.BLACK);
@@ -60,10 +62,12 @@ public class UIButton {
         if (hover) {
 
             g.setColor(Color.YELLOW);
+            tempText = selectText;
         
         } else {
 
             g.setColor(Color.WHITE);
+            tempText = text;
 
         }
         if (pressed) {
@@ -85,7 +89,7 @@ public class UIButton {
 
         // Text
         g.setFont(GameScreen.UIFont);
-        GameScreen.drawText(text, x + width / 2, y + height / 2, g);
+        GameScreen.drawText(tempText, x + width / 2, y + height / 2, g);
 
     }
 

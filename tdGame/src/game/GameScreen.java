@@ -15,7 +15,7 @@ public class GameScreen extends JPanel {
 
     // CONST DECLARATIONS
     public static final Dimension size = new Dimension(640, 640);
-    public static final Font UIFont = new Font("Georgia", Font.PLAIN, 16);
+    public static final Font UIFont = new Font("Noods Soup", Font.PLAIN, 16);
 
     // VAR DECLARATIONS
     protected int fpsCounter,
@@ -74,6 +74,7 @@ public class GameScreen extends JPanel {
     }
 
     // FUNCTIONS
+    /*
     private void showFPS(final Graphics g) {
 
         final Color statsBackground = new Color(0, 0, 0, 125);
@@ -82,7 +83,7 @@ public class GameScreen extends JPanel {
         g.fillRect(0, 0, 57, 10);
 
         g.setColor(Color.GREEN);
-        g.setFont(new Font("Liberation Mono", Font.PLAIN, 12));
+        g.setFont(new Font("Ubuntu Mono", Font.PLAIN, 12));
         g.drawString("FPS: " + fpsCounter, 0, 9);
 
     }
@@ -95,10 +96,11 @@ public class GameScreen extends JPanel {
         g.fillRect(0, 0, 50, 10);
 
         g.setColor(Color.BLUE);
-        g.setFont(new Font("Liberation Mono", Font.PLAIN, 12));
+        g.setFont(new Font("Ubuntu Mono", Font.PLAIN, 12));
         g.drawString("UPS: " + upsCounter, 0, 9);
 
     }
+    */
 
     private void showStats(final Graphics g) {
 
@@ -106,13 +108,13 @@ public class GameScreen extends JPanel {
 
         g.setColor(statsBackground);
         g.fillRect(0, 0, 114, 10);
+        
+        g.setFont(new Font("Ubuntu Mono", Font.PLAIN, 12));
 
         g.setColor(Color.GREEN);
-        g.setFont(new Font("Liberation Mono", Font.PLAIN, 12));
         g.drawString("FPS: " + fpsCounter, 0, 9);
 
-        g.setColor(Color.BLUE);
-        g.setFont(new Font("Liberation Mono", Font.PLAIN, 12));
+        g.setColor(new Color(0, 100, 255));
         g.drawString("UPS: " + upsCounter, 64, 9);
 
     }
